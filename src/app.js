@@ -25,6 +25,7 @@ app.use(
   })
 );
 
+
 app.use(currentUser);
 // Register the middleware
 app.use(currentUserRouter);
@@ -36,5 +37,38 @@ app.use(getAllPostRouter);
 app.use(getMyPostRouter);
 app.use(createCommentByPostIdRouter);
 app.use(getCommentByPostIdRouter);
+
+app.all('*', (req, res, next) => {
+  let status = 404;
+  let message = "Route not found"
+   throw new Error(message, 404)
+});
+
+
+// handle all the throw error here
+app.use((err, req, res, next) => {
+  console.error('Error -> ', err);
+  res.status(err.status || 500).send({
+    message: err.message || 'Internal Server Error'
+  });
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled exception at: ', promise, 'reason: ', reason);
+  process.exit(1);
+});
+
+process.on('uncaughtException', (error) => {
+  console.log('Uncaught exception: ', error);
+  process.exit(1);
+});
+
+const shutdown = () => {
+  console.log('Shutting down gracefully...');
+  process.exit(1); // Exit code = 1, meaning process terminated due to an error
+};
+
+process.on('SIGTERM', shutdown); // SIGTERM -> Signal Terminated
+process.on('SIGINT', shutdown); // SIGINT -> Signal Interrupted
 
 export { app };

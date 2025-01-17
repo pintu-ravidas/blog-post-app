@@ -23,6 +23,7 @@ export const currentUser = function(req, res, next) {
  
    } catch (error) {
     console.log('error ', error )
+    //throw new Error(error)
    }
  
    next();
