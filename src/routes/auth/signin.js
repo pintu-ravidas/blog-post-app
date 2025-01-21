@@ -3,6 +3,8 @@ const router = express.Router();
 import { User } from '../../models/User.js';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
 
 router.post('/api/user/signin',
      [
@@ -25,8 +27,9 @@ router.post('/api/user/signin',
         });
     }
 
+    const isVerified = await bcrypt.compare(password, user.password);
     // if user entered and db store password same
-    if(password === user.password) {
+    if(isVerified) {
          // Generate JWT token 
         const userJWT = jwt.sign(
             { // user data

@@ -18,6 +18,7 @@ router.post('/api/user/signup',
     }
 
     let { email, password } = req.body;
+    //const hasedPwd = await hashPassword(password); // hashing the password
     const user = new User({ email, password });
     await user.save();
 
