@@ -5,7 +5,7 @@ import { Comment } from '../../models/Comment.js';
 import { body } from 'express-validator';
 import { Post } from '../../models/Post.js';
 
-router.post('/api/comments/:postId/create', auth,
+router.post('/api/comments/:postId/create',
     [
         body('title').notEmpty().withMessage('comment title is required!'),
     ],

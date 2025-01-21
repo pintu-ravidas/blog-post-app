@@ -6,7 +6,7 @@ import { body } from 'express-validator';
 
 //app.use(currentUserRouter);
 
-router.post('/api/posts/create', auth,
+router.post('/api/posts/create',
     [
         body('email').notEmpty().withMessage('Title is required!'),
     ],

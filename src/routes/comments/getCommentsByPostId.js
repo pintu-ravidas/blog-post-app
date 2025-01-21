@@ -6,7 +6,7 @@ import { body } from 'express-validator';
 import { Post } from '../../models/Post.js';
 
 
-router.get('/api/comments/:postId', auth,
+router.get('/api/comments/:postId',
 
     async (req, res) => {
 

@@ -3,7 +3,7 @@ const router = express.Router();
 import { auth } from '../auth/auth.js';
 import { Post } from '../../models/Post.js';
 
-router.get('/api/posts/mypost', auth,
+router.get('/api/posts/mypost',
     async (req, res) => {
 
     const posts = await Post.find({});

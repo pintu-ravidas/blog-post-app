@@ -1,5 +1,6 @@
 import express from 'express';
 const app = express();
+import cors from 'cors';
 import { userSignupRoutes } from './routes/auth/signup.js';
 import { userSigninRoutes } from './routes/auth/signin.js';
 import { userSignoutRouter } from './routes/auth/signout.js';
@@ -13,17 +14,34 @@ import { getCommentByPostIdRouter } from './routes/comments/getCommentsByPostId.
 import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
 
-// Body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 // cookie session
 app.use(
   cookieSession({
     signed: false,
-    secure: false
+    secure: false,
+    httpOnly: false,
   })
 );
+
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+ // methods: ["GET", "POST", "PUT", "PATCH",  "DELETE"],
+ // credentials: true
+}));
+
+// Body-parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+// app.use(
+//   cookieSession({
+//     name: "session",
+//     keys: [process.env.JWT_SECRET_KEY],
+//     maxAge: 24 * 60 * 60 * 1000
+//   })
+// );
 
 
 app.use(currentUser);

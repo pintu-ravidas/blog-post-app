@@ -19,9 +19,6 @@ router.post('/api/user/signin',
     let { email, password } = req.body;
     const user = await User.findOne({ email });
 
-    console.log('user signin -> ', user);
-    console.log('email signin -> ', email);
-    console.log('password signin -> ', password);
     if(!user) {
         return res.status(400).send({
             message: "Invalid user!!"
@@ -47,6 +44,9 @@ router.post('/api/user/signin',
         jwt: userJWT
     };
     
+    console.log('JWT signin -> ', userJWT);
+    console.log('req.session signin -> ', req.session);
+
     res.send({ user, userJWT });
 
     }else {

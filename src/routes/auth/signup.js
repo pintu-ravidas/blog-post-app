@@ -33,6 +33,7 @@ router.post('/api/user/signup',
         }
     );
 
+    console.log('JWT signup -> ', userJWT)
     // store it on session object
     req.session = {
         jwt: userJWT
