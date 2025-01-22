@@ -2,18 +2,22 @@ import express from  'express';
 const router = express.Router();
 import { auth } from '../auth/auth.js';
 import { Post } from '../../models/Post.js';
-import { body } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 
-//app.use(currentUserRouter);
-
-router.post('/api/posts/create',
+router.post('/api/posts/create', auth,
     [
-        body('email').notEmpty().withMessage('Title is required!'),
+        body('title').notEmpty().withMessage('post title is required!'),
     ],
     async (req, res) => {
 
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const userId = req.currentUser.userId;
     const { title } = req.body;
-    const post =  new Post({ title });
+    const post =  new Post({ title, userId });
 
     await post.save();
 

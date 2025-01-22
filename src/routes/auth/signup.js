@@ -30,7 +30,7 @@ router.post('/api/user/signup',
         },
         process.env.JWT_SECRET_KEY, // JWT secret key
         {
-            expiresIn: '10min' // expiry time
+            expiresIn: '50min' // expiry time
         }
     );
 

@@ -13,6 +13,24 @@ import { createCommentByPostIdRouter } from './routes/comments/createCommentByPo
 import { getCommentByPostIdRouter } from './routes/comments/getCommentsByPostId.js';
 import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
+
+// Body-parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('trust proxy', true) // trust first proxy
+app.use(bodyParser.json());
+
+
+
+//app.use(cookieParser());
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ["GET", "POST", "PUT", "PATCH",  "DELETE"],
+  credentials: true
+}));
+
+
 
 // cookie session
 app.use(
@@ -22,26 +40,6 @@ app.use(
     httpOnly: false,
   })
 );
-
-
-app.use(cors({
-  origin: 'http://localhost:3000',
- // methods: ["GET", "POST", "PUT", "PATCH",  "DELETE"],
- // credentials: true
-}));
-
-// Body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     keys: [process.env.JWT_SECRET_KEY],
-//     maxAge: 24 * 60 * 60 * 1000
-//   })
-// );
 
 
 app.use(currentUser);

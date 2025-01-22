@@ -12,7 +12,7 @@ router.post('/api/user/signin',
         body('password').notEmpty().isLength({ min: 5}).withMessage('Password must be 5 character long')
      ],
      async (req, res) => {
-
+    
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -21,9 +21,12 @@ router.post('/api/user/signin',
     let { email, password } = req.body;
     const user = await User.findOne({ email });
 
+    console.log('user -> signin ',  user);
+    
+
     if(!user) {
-        return res.status(400).send({
-            message: "Invalid user!!"
+        return res.status(401).send({
+            errors: [{"msg": "Invalid user!!"}]
         });
     }
 
@@ -46,9 +49,11 @@ router.post('/api/user/signin',
     req.session = {
         jwt: userJWT
     };
-    
-    console.log('JWT signin -> ', userJWT);
-    console.log('req.session signin -> ', req.session);
+
+    // req.cookie("session", userJWT, {
+    //     httpOnly: false
+    // });
+
 
     res.send({ user, userJWT });
 
