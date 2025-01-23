@@ -2,7 +2,7 @@ import express from  'express';
 const router = express.Router();
 import { Post } from '../../models/Post.js';
 
-router.get('https://blog-post-app-backend-zocg.onrender.com/api/posts',
+router.get('/api/posts',
     async (req, res) => {
 
         console.log('req.currentUser get posts -> ', req.currentUser)  
