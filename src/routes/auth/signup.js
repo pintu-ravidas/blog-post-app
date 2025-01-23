@@ -5,7 +5,7 @@ import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
-router.post('https://blog-post-app-backend-zocg.onrender.com/api/user/signup',
+router.post('/api/user/signup',
      [
         body('email').notEmpty().isEmail().withMessage('Invalid email id'),
         body('password').notEmpty().isLength({ min: 5}).withMessage('Password must be 5 character long')
