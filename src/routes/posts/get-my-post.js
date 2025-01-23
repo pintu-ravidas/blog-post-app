@@ -3,7 +3,7 @@ const router = express.Router();
 import { auth } from '../auth/auth.js';
 import { Post } from '../../models/Post.js';
 
-router.get('https://blog-post-app-backend-zocg.onrender.com/api/posts/mypost', auth,
+router.get('/api/posts/mypost', auth,
     async (req, res) => {
 
     console.log('req.currentUser mypost -> ', req.currentUser)
