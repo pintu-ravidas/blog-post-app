@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken';
-import 'dotenv/config.js';
 
 export const auth = function(req, res, next)  {
 

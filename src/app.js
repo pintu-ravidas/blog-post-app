@@ -65,7 +65,7 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   console.error('Error -> ', err);
   res.status(err.status || 500).send({
-    message: err.message || 'Internal Server Error'
+    errors: [{"msg": err.message}]
   });
 });
 
