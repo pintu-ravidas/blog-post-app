@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 //app.use(cookieParser());
 
 app.use(cors({
-  origin: 'https://blog-post-app-client.onrender.com/',
+  origin: 'https://blog-post-app-client.onrender.com',
   methods: ["GET", "POST", "PUT", "PATCH",  "DELETE"],
   credentials: true
 }));
@@ -36,7 +36,7 @@ app.use(cors({
 app.use(
   cookieSession({
     signed: false,
-    secure: false,
+    secure: true,
     httpOnly: false,
   })
 );
