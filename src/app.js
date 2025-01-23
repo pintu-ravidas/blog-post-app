@@ -41,18 +41,18 @@ app.use(
   })
 );
 
-
+const baseUrl = process.env.BASE_URL;
 app.use(currentUser);
 // Register the middleware
 app.use(currentUserRouter);
-app.use(userSignupRoutes);
-app.use(userSigninRoutes);
-app.use(userSignoutRouter);
-app.use(createPostRouter);
-app.use(getAllPostRouter);
-app.use(getMyPostRouter);
-app.use(createCommentByPostIdRouter);
-app.use(getCommentByPostIdRouter);
+app.use(baseUrl, userSignupRoutes);
+app.use(baseUrl, userSigninRoutes);
+app.use(baseUrl, userSignoutRouter);
+app.use(baseUrl, createPostRouter);
+app.use(baseUrl, getAllPostRouter);
+app.use(baseUrl, getMyPostRouter);
+app.use(baseUrl, createCommentByPostIdRouter);
+app.use(baseUrl, getCommentByPostIdRouter);
 
 app.all('*', (req, res, next) => {
   let status = 404;
