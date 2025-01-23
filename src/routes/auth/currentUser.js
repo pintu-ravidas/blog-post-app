@@ -3,9 +3,8 @@ import jwt from 'jsonwebtoken'
 
 export const currentUser = function(req, res, next) {
 
-    console.log('session jwt ', req.session.jwt)
+    console.log('session jwt currentUser ->', req.session.jwt);
     if(!req.session?.jwt) {
-       console.log('req.currentUser 1', req.currentUser )
        return next();
     }
  
@@ -17,12 +16,10 @@ export const currentUser = function(req, res, next) {
         process.env.JWT_SECRET_KEY
      );
   
-     req.currentUser = payload;
- 
-     console.log('req.currentUser ', req.currentUser )
+     req.currentUser = {userId: payload.userId, email: payload.email };
  
    } catch (error) {
-    console.log('error ', error )
+    console.log('error currentUser -> ', error )
     //throw new Error(error)
    }
  

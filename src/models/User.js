@@ -1,4 +1,6 @@
 import mongoose, { version } from 'mongoose';
+import bcrypt from 'bcrypt';
+import 'dotenv/config';
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -27,6 +29,19 @@ const UserSchema = new mongoose.Schema({
    }
     
 );
+
+
+UserSchema.pre('save', async function (next) {
+    try {
+        const salt = 10;
+        if(this.isModified('password')) {
+            this.password = await bcrypt.hash(this.password, salt);
+        } 
+        next();  
+    } catch (error) {
+        
+    }
+});
 
 const User = mongoose.model('User', UserSchema);
 

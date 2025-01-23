@@ -2,7 +2,7 @@ import express from  'express';
 const router = express.Router();
 import { auth } from '../auth/auth.js';
 import { Comment } from '../../models/Comment.js';
-import { body } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import { Post } from '../../models/Post.js';
 
 router.post('/api/comments/:postId/create', auth,
@@ -12,6 +12,11 @@ router.post('/api/comments/:postId/create', auth,
 
     async (req, res) => {
 
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
     const { postId } = req.params;
     console.log('postId --> ', postId);
     const { title } = req.body;

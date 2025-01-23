@@ -18,6 +18,7 @@ router.post('/api/user/signup',
     }
 
     let { email, password } = req.body;
+    //const hasedPwd = await hashPassword(password); // hashing the password
     const user = new User({ email, password });
     await user.save();
 
@@ -29,10 +30,11 @@ router.post('/api/user/signup',
         },
         process.env.JWT_SECRET_KEY, // JWT secret key
         {
-            expiresIn: '10min' // expiry time
+            expiresIn: '50min' // expiry time
         }
     );
 
+    console.log('JWT signup -> ', userJWT)
     // store it on session object
     req.session = {
         jwt: userJWT

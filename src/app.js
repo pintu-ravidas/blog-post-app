@@ -1,5 +1,6 @@
 import express from 'express';
 const app = express();
+import cors from 'cors';
 import { userSignupRoutes } from './routes/auth/signup.js';
 import { userSigninRoutes } from './routes/auth/signin.js';
 import { userSignoutRouter } from './routes/auth/signout.js';
@@ -12,16 +13,31 @@ import { createCommentByPostIdRouter } from './routes/comments/createCommentByPo
 import { getCommentByPostIdRouter } from './routes/comments/getCommentsByPostId.js';
 import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
 
 // Body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('trust proxy', true) // trust first proxy
 app.use(bodyParser.json());
+
+
+
+//app.use(cookieParser());
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ["GET", "POST", "PUT", "PATCH",  "DELETE"],
+  credentials: true
+}));
+
+
 
 // cookie session
 app.use(
   cookieSession({
     signed: false,
-    secure: false
+    secure: false,
+    httpOnly: false,
   })
 );
 
@@ -49,7 +65,7 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   console.error('Error -> ', err);
   res.status(err.status || 500).send({
-    message: err.message || 'Internal Server Error'
+    errors: [{"msg": err.message}]
   });
 });
 

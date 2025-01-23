@@ -6,6 +6,7 @@ import { Post } from '../../models/Post.js';
 router.get('/api/posts/mypost', auth,
     async (req, res) => {
 
+    console.log('req.currentUser mypost -> ', req.currentUser)
     const posts = await Post.find({});
 
     res.status(200).send(posts);
