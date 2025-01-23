@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 //app.use(cookieParser());
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://blog-post-app-client.onrender.com/',
   methods: ["GET", "POST", "PUT", "PATCH",  "DELETE"],
   credentials: true
 }));
