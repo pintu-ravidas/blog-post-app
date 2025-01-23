@@ -17,7 +17,7 @@ import cookieParser from 'cookie-parser';
 
 // Body-parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('trust proxy', true) // trust first proxy
+//app.set('trust proxy', true) // trust first proxy
 app.use(bodyParser.json());
 
 
