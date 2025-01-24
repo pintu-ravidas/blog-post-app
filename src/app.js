@@ -41,11 +41,11 @@ app.use(
   })
 );
 
-const baseUrl = process.env.BASE_URL;
+const baseUrl = '';
 app.use(currentUser);
 // Register the middleware
 app.use(currentUserRouter);
-app.use('https://blog-post-app-backend-zocg.onrender.com', userSignupRoutes);
+app.use(baseUrl, userSignupRoutes);
 app.use(baseUrl, userSigninRoutes);
 app.use(baseUrl, userSignoutRouter);
 app.use(baseUrl, createPostRouter);
